@@ -38,16 +38,6 @@ def getLetterCount(sInput):
             letCount[e] = 100 / totCount
     return letCount
 
-def get(sInput):
-    totCount = getCount(sInput)
-    letCount = {'a' : 0}
-    for e in sInput.lower():
-        if e in letCount.keys():
-            letCount[e] += 100 / totCount
-        else:
-            letCount[e] = 100 / totCount
-    return letCount
-
 # def getLetterCount(message):
 #     totalcount=getCount(message)
 #     letterCount = {'A': 0, 'B': 0, 'C': 0, 'D': 0, 'E': 0, 'F': 0, 'G': 0, 'H': 0, 'I': 0, 'J': 0, 'K': 0, 'L': 0, 'M': 0,
@@ -69,6 +59,13 @@ def cleanData(data):
         if e in alphabet:
             cDat += e
     return cDat
+
+def freqProd(f1, f2):
+    prod = 0
+    for i in range(0, f1.length()):
+        prod += f1[i][1] * f2[i][1]
+    return prod
+
 
 def getAlphabet(freqString):
     return ''.join([e[0] for e in freqString])
