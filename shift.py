@@ -29,17 +29,24 @@ def getLetterCount(sInput):
             letCount[e] += 100 / totCount
         else:
             letCount[e] = 100 / totCount
-        return letCount
+    return letCount
 
 def getTrigramCount(sInput):
     totCount = getCount(sInput)-2
-    letCount = {'a': 0}
-    for e in sInput.lower():
-        if e in letCount.keys():
-            letCount[e] += 100 / totCount
+    trigCount = {'abc' : 0}
+    for e in range(0, totCount):
+        trig = str(sInput[e:e+3])
+        if trig in trigCount.keys():
+            trigCount[trig] += 1
         else:
-            letCount[e] = 100 / totCount
-    return letCount
+            trigCount[trig] = 1
+    return trigCount
+
+def getTrigramString(sInput):
+    trigCount = getTrigramCount(sInput)
+    sortedDict = sorted(trigCount.items(), key=operator.itemgetter(1))
+    sortedDict.reverse()
+    return sortedDict
 
 def getFrequencyString(message):
     letterCount = getLetterCount(message)
@@ -69,16 +76,17 @@ englishLetterFreq = {'E': 12.70, 'T': 9.06, 'A': 8.17, 'O': 7.51, 'I': 6.97, 'N'
 with open('.idea/input.txt', 'r') as input:
     data = cleanData(input.read().lower())
 print(langdetect.detect_langs(data), data)
-print(getLetterCount(data))
+print(getFrequencyString(data))
+print(getTrigramString(data))
 
-encData = shift(data, key, alphabet)
-freqEnc = getFrequencyString(encData)
-freqEncAlph = getAlphabet(freqEnc).lower()
-
-print(freqEncAlph)
-
-decData = shift(encData, etaoin, freqEncAlph)
-
-print(langdetect.detect_langs(decData), decData)
-
-
+# encData = shift(data, key, alphabet)
+# freqEnc = getFrequencyString(encData)
+# freqEncAlph = getAlphabet(freqEnc).lower()
+#
+# print(freqEncAlph)
+#
+# decData = shift(encData, etaoin, freqEncAlph)
+#
+# print(langdetect.detect_langs(decData), decData)
+#
+#
